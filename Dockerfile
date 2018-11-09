@@ -39,13 +39,13 @@ ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 
 RUN yum update -y && yum install -y epel-release vim tree wget curl dkms which git python-pip \
 	&& yum clean all -y \
-	&& yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
+	#&& yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
 	&& yum install -y https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-repo-rhel7-8.0.61-1.x86_64.rpm \
-	&& yum install -y cuda-9.0.176-1  \
+	&& yum install -y cuda cuda-devel  \
 #        && curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && python get-pip.py \
         && ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1
 
-COPY ./s2i/bin/ /usr/libexec/s2i
+#COPY ./s2i/bin/ /usr/libexec/s2i
 #Drop the root user and make the content of /opt/app-root owned by user 1001
 RUN mkdir -p /opt/app-root/ && chown -R 1001:1001 /opt/app-root
 
